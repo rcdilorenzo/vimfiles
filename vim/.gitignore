@@ -1,0 +1,5 @@
+backup/*
+!backup/.gitnotice
+bundle
+tmp/*
+!tmp/.gitnotice

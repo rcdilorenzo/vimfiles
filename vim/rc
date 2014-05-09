@@ -1,0 +1,449 @@
+
+" Screw legacy
+set nocompatible
+
+" DASH INTEGRATION
+" ====>
+  function! SearchDash()
+    let s:browser = "/usr/bin/open"
+    let s:wordUnderCursor = expand("<cword>")
+    let s:url = "dash://".s:wordUnderCursor
+    let s:cmd ="silent ! " . s:browser . " " . s:url
+    execute s:cmd
+    redraw!
+  endfunction
+  map <leader>d :call SearchDash()<CR>
+" =====
+
+
+" PLUGIN MANAGEMENT (VUNDLE)
+" NOTE comments after Bundle command are not allowed
+" ====>
+  " This is required
+  filetype off
+
+  " Initialize Vundle
+  set rtp+=~/.vim/bundle/vundle/
+  call vundle#rc()
+
+  " Also required
+  Bundle 'gmarik/vundle'
+" =====
+
+
+" GENERAL
+" ====>
+  " Automatically reload .vimrc on save
+  autocmd! bufwritepost .vimrc source %
+
+  " Smart indentation
+  set autoindent
+  set smartindent
+
+  " Tab stops
+  set tabstop=2
+  set shiftwidth=2
+  set softtabstop=2
+  set expandtab
+
+  " Whitespace
+  Bundle 'bronson/vim-trailing-whitespace'
+
+  " Unicode
+  set encoding=utf-8
+
+  " Highlight matching brace/parenthese/bracket
+  set showmatch
+
+  " Visual bell
+  set vb t_vb=
+  set novisualbell
+
+  " Watch for file changes
+  set autoread
+
+  " Line endings
+  set fileformats=unix
+  set ff=unix
+
+  " Free-range cursor in INSERT mode
+  " set virtualedit=all
+
+  " Keep all the temporary and backup files in one place
+  set backup
+  set backupdir=~/.vim/backup
+  set directory=~/.vim/tmp
+  set nobackup
+  set noswapfile
+
+  " Remap split commands
+  nnoremap <leader>h :split<cr>
+  nnoremap <leader>v :vsplit<cr>
+
+  " Undo in INSERT mode
+  imap <c-z> <c-o>u
+
+  " Make tabbing in VISUAL mode keep highlighting
+  vmap <tab> >gv
+  vmap <s-tab> <gv
+
+  " Remove scrollbars
+  if has('gui_running')
+    set guioptions-=l
+    set guioptions-=r
+    set guioptions-=b
+  end
+
+  " Persistent undo
+  if v:version >= 703
+    set undofile
+    set undodir=~/.vim/tmp
+  endif
+
+" =====
+
+" BASH INTEGRATION
+" ====>
+  Bundle 'oplatek/Conque-Shell'
+  map <leader>x :ConqueTermSplit bash<cr>
+  let g:ConqueTerm_CWInsert = 1
+  let g:ConqueTerm_ReadUnfocused = 1
+  let g:ConqueTerm_CloseOnEnd = 1
+  let g:ConqueTerm_InsertOnEnter = 1
+  let g:ConqueTerm_PromptRegex = '^\w\+@[0-9A-Za-z_.-]\+:[0-9A-Za-z_./\~,:-]\+\$'
+
+  function ConqueStartup(term)
+    " shrink window size
+    resize 10
+  endfunction
+
+  call conque_term#register_function('after_startup', 'ConqueStartup')
+  inoremap <D-k> <Esc>:call conque_term#get_instance().writeln('clear')<CR>i
+" =====
+
+
+" GENERATE BASH PROMPT
+" ====>
+  Bundle 'edkolev/promptline.vim'
+  let g:promptline_preset = {
+        \'a'    : [ '\u' ],
+        \'b'    : [ '\W' ],
+        \'warn'    : [ promptline#slices#vcs_branch() ]}
+" =====
+
+" SPELL CHECKING
+" ====>
+  " Turn off spell checking (colors made text unreadable)
+  set nospell
+  set spelllang=en
+
+  " Show only 9 suggestions for misspelled words
+  set spellsuggest=9
+" =====
+
+
+" SEARCH
+" ====>
+  " Incremental search with ignore case (except explicit caps)
+  set incsearch
+  set ignorecase
+  set smartcase
+  set showmatch
+  set hlsearch
+
+  " Clear search highlighting
+  nnoremap <leader><space> :noh<cr>
+
+  " Search highlighting
+  set hls
+  "set nohls
+
+  " Ruby-ish regular expressions
+  map / /\v
+
+  " Center search results while browsing
+  map N Nzz
+  map n nzz
+" =====
+
+" OBJ-C
+"  ====>
+  :filetype plugin on
+  Bundle 'Rip-Rip/clang_complete'
+  Bundle 'cocoa.vim'
+  Bundle 'eraserhd/vim-ios'
+  " Bundle 'terhechte/syntastic'
+  Bundle 'b4winckler/vim-objc'
+  Bundle 'Goles/objcbracket.vim'
+  Bundle 'easytags.vim'
+  Bundle 'Shougo/neocomplcache'
+  Bundle 'ervandew/supertab'
+  Bundle 'jellybeans.vim'
+  Bundle 'inccomplete'
+
+  Bundle 'MarcWeber/vim-addon-mw-utils'
+  Bundle 'tomtom/tlib_vim'
+  Bundle 'garbas/vim-snipmate'
+  Bundle 'honza/vim-snippets'
+
+  " SuperTab option for context aware completion
+  " let g:SuperTabDefaultCompletionType = 'context'
+  " let g:clang_complete_copen = 1
+
+  let g:clang_user_options='-fblocks -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk - D__IPHONE_OS_VERSION_MIN_REQUIRED=70000'
+
+  " Disable auto completion, always <c-x> <c-o> to complete
+  let g:clang_complete_auto = 0
+  let g:clang_use_library = 1
+  let g:clang_periodic_quickfix = 0
+  let g:clang_close_preview = 1
+
+  " For Objective-C, this needs to be active, otherwise multi-parameter methods won't be completed correctly
+  " let g:clang_snippets = 1
+
+  " Snipmate does not work anymore, ultisnips is the recommended plugin
+  " let g:clang_snippets_engine = 'ultisnips'
+
+  " This might change depending on your installation
+  let g:clang_exec = '/usr/bin/clang'
+  let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
+
+  " Show sidebar signs.
+  " let g:syntastic_enable_signs=1
+
+  " Read the clang complete file
+  let g:syntastic_objc_config_file = '.clang_complete'
+
+
+  " Tell it to use clang instead of gcc
+  let g:syntastic_objc_checker = 'clang'
+
+  function! XCodeBuild()
+    let l:command = 'xcodebuild -sdk iphonesimulator7.1'
+    let l:out = system(l:command)
+    cexpr l:out
+  endfunction
+
+  map <D-j> :stjump<cr>
+  map <A-D-up> :A<cr>
+  map <A-D-down> :A<cr>
+  map <A-D-left> <C-o>
+  map <A-D-right> <C-i>
+" =====
+
+
+" EDITING
+" ====>
+  " Fix syntax highlighting for .md files
+  au BufRead,BufNewFile *.md set filetype=markdown
+
+  " Multiple cursors
+  Bundle 'terryma/vim-multiple-cursors'
+
+  " Distraction Free
+  Bundle 'junegunn/goyo.vim'
+  nnoremap <leader>z :Goyo<CR>
+
+  Bundle 'bufexplorer.zip'
+  map <C-b> :BufExplorer<CR>
+  map <C-x> :bp\|bd #<CR>
+
+  Bundle 'taskpaper.vim'
+
+  " Elixir
+  Bundle 'elixir-lang/vim-elixir'
+
+  " Align text
+  Bundle 'godlygeek/tabular'
+  Bundle 'vim-coffee-script'
+
+  " Cool tab completion stuff
+  Bundle 'ervandew/supertab'
+  set wildmenu
+  set wildmode=list:longest,full
+
+  " toggle comments with \\\
+  Bundle 'tpope/vim-commentary'
+
+  " toggle comments with <leader>c<space>
+  "Bundle 'scrooloose/nerdcommenter'
+
+  " Create empty line and stay in NORMAL mode
+  nnoremap <silent> zj o<Esc>
+  nnoremap <silent> zk O<Esc>
+
+  " Autoclose blocks
+  Bundle 'tpope/vim-endwise'
+" =====
+
+
+" FOLDING
+" ====>
+  " Enable indent folding
+  set foldenable
+  set fdm=indent
+
+  " Turn off folding by default
+  set foldlevel=100
+
+  " Set space to toggle a fold
+  nnoremap <space> za
+" =====
+
+
+" DECORATION
+" ====>
+  " Some nice themes
+  Bundle 'gmarik/ingretu'
+  Bundle 'wombat256.vim'
+  Bundle 'croaker/mustang-vim'
+
+  " Turn on line numbering
+  set number
+
+  " Width reserved for line numbers
+  set numberwidth=1
+
+  " Relative numbering in NORMAL mode
+  " Absolute numbering in INSERT mode
+  Bundle 'myusuf3/numbers.vim'
+  nnoremap <F3> :NumbersToggle<CR>
+
+  " Highlight current line
+  set cursorline cursorcolumn
+
+  " Font (download for compatility with airline)
+  set guifont=Sauce\ Code\ Powerline:h13
+
+  " Theme
+  set background=dark
+
+  " Color Scheme
+  " colorscheme twilight
+  colorscheme mustang
+
+  " Remove gui toolbar
+  if has('gui_running')
+    set guioptions-=T
+  end
+" =====
+
+
+" STATUSBAR
+" ====>
+  " Turn on statusbar
+  set ruler
+
+  " Always show the statusline
+  set laststatus=2
+
+  Bundle 'bling/vim-airline'
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline_powerline_fonts = 1
+" =====
+
+
+" SAVING
+" ====>
+  " Save with ctrl+s
+  map <c-s> <esc>:w<cr>
+  imap <c-s> <c-o><c-s>
+  imap <c-s> <esc><c-s>
+
+  " Make saving less annoying
+  map :W :w
+" =====
+
+
+" PROJECT MANAGEMENT
+" ====>
+  Bundle 'ravinggenius/vim-open'
+
+  " Projects Directory
+  let g:project_dir = '~/workspaces/'
+  let g:open_dir_auto_open_nerdtree = 0
+  let g:open_dir_callback = 'CtrlP'
+
+  Bundle 'scrooloose/nerdtree'
+  set guioptions-=L
+  set autochdir
+  let NERDTreeChDirMode=2
+  map <F9> :NERDTreeToggle<CR>
+" =====
+
+
+" QUICK OPEN
+" ====>
+  " http://kien.github.com/ctrlp.vim/
+  Bundle 'kien/ctrlp.vim'
+
+  "nmap <leader>o :CtrlP<CR>
+  let g:ctrlp_working_path_mode = 2
+
+  " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+  " set wildignore+=*/.sass-cache/*,*/tmp/*,*/.tmp/*,*.so
+  " set wildignore+=*/vendor/*
+
+  let g:ctrlp_custom_ignore = 'coverage$'
+
+  Bundle 'ack.vim'
+" =====
+
+
+" MOTIONS
+" ====>
+  " Move a line of text using ALT+[jk] (Comamnd+[jk] on mac)
+  nmap <M-j> mz:m+<cr>`z
+  nmap <M-k> mz:m-2<cr>`z
+  vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+  vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+  " Move up and down by screen lines, not file lines
+  nnoremap j gj
+  nnoremap k gk
+
+  " Keep at least 3 lines above/below
+  set scrolloff=3
+
+  " Keep at least 2 lines left/right
+  set sidescrolloff=2
+" =====
+
+
+" GIT
+" ====>
+  " Syntax highlighting for git-specific files and stuff
+  Bundle 'tpope/vim-git'
+
+  " Run git commands from vim
+  Bundle 'tpope/vim-fugitive'
+
+  " Git gutter/status
+  " Bundle 'airblade/vim-gitgutter'
+
+  " Syntax highlighting for slim
+  Bundle 'bbommarito/vim-slim'
+" =====
+
+" INTEGRATION (ELIXIR)
+" ====>
+  au BufRead,BufNewFile *.ex set filetype=elixir
+  au BufRead,BufNewFile *.exs set filetype=elixir
+" =====
+
+" INTEGRATION (MARKDOWN)
+" ====>
+  Bundle 'plasticboy/vim-markdown'
+" =====
+
+
+" INTEGRATION (RUBY)
+" ====>
+  Bundle 'tpope/vim-rails.git'
+" =====
+
+
+" Detect file formats
+" Keep at end - vundle wants this to be off when calling Bundle '...'
+syntax on
+filetype indent plugin on
