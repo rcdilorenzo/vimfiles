@@ -23,8 +23,11 @@ set nocompatible
   filetype off
 
   " Initialize Vundle
-  set rtp+=~/.vim/bundle/vundle/
+  set rtp+=/etc/vim/bundle/vundle/
   call vundle#rc()
+
+  " Ubuntu enable full-color range
+  set t_Co=256
 
   " Also required
   Bundle 'gmarik/vundle'
