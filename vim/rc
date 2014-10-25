@@ -1,20 +1,4 @@
-
-" Screw legacy
 set nocompatible
-
-" DASH INTEGRATION
-" ====>
-  function! SearchDash()
-    let s:browser = "/usr/bin/open"
-    let s:wordUnderCursor = expand("<cword>")
-    let s:url = "dash://".s:wordUnderCursor
-    let s:cmd ="silent ! " . s:browser . " " . s:url
-    execute s:cmd
-    redraw!
-  endfunction
-  map <leader>d :call SearchDash()<CR>
-" =====
-
 
 " PLUGIN MANAGEMENT (VUNDLE)
 " NOTE comments after Bundle command are not allowed
@@ -30,9 +14,23 @@ set nocompatible
   Bundle 'gmarik/vundle'
 " =====
 
+" Split Management
+" ====>
+  set splitbelow
+  set splitright
+
+  nnoremap <C-J> <C-W><C-J>
+  nnoremap <C-K> <C-W><C-K>
+  nnoremap <C-L> <C-W><C-L>
+  nnoremap <C-H> <C-W><C-H>
+" ==== 
+
 
 " GENERAL
 " ====>
+  " Editor Config
+  Bundle 'editorconfig/editorconfig-vim'
+
   " Automatically reload .vimrc on save
   autocmd! bufwritepost .vimrc source %
 
@@ -102,31 +100,12 @@ set nocompatible
 
 " =====
 
-" BASH INTEGRATION
-" ====>
-  Bundle 'oplatek/Conque-Shell'
-  map <leader>x :ConqueTermSplit bash<cr>
-  let g:ConqueTerm_CWInsert = 1
-  let g:ConqueTerm_ReadUnfocused = 1
-  let g:ConqueTerm_CloseOnEnd = 1
-  let g:ConqueTerm_InsertOnEnter = 1
-  let g:ConqueTerm_PromptRegex = '^\w\+@[0-9A-Za-z_.-]\+:[0-9A-Za-z_./\~,:-]\+\$'
-
-  function ConqueStartup(term)
-    " shrink window size
-    resize 10
-  endfunction
-
-  call conque_term#register_function('after_startup', 'ConqueStartup')
-  inoremap <D-k> <Esc>:call conque_term#get_instance().writeln('clear')<CR>i
-" =====
-
-
 " GENERATE BASH PROMPT
 " ====>
   Bundle 'edkolev/promptline.vim'
+  let g:promptline_theme = 'airline'
   let g:promptline_preset = {
-        \'a'    : [ '\u' ],
+        \'a'    : [ promptline#slices#cwd() ],
         \'b'    : [ '\W' ],
         \'warn'    : [ promptline#slices#vcs_branch() ]}
 " =====
@@ -166,69 +145,17 @@ set nocompatible
   map n nzz
 " =====
 
-" OBJ-C
-"  ====>
-  :filetype plugin on
-  Bundle 'Rip-Rip/clang_complete'
-  Bundle 'cocoa.vim'
-  Bundle 'eraserhd/vim-ios'
-  " Bundle 'terhechte/syntastic'
-  Bundle 'b4winckler/vim-objc'
-  Bundle 'Goles/objcbracket.vim'
-  Bundle 'easytags.vim'
-  Bundle 'Shougo/neocomplcache'
-  Bundle 'ervandew/supertab'
-  Bundle 'jellybeans.vim'
-  Bundle 'inccomplete'
+" Languages
+" ====>
+  " Swift
+  Bundle 'toyamarinyon/vim-swift'
 
-  Bundle 'MarcWeber/vim-addon-mw-utils'
-  Bundle 'tomtom/tlib_vim'
-  Bundle 'garbas/vim-snipmate'
-  Bundle 'honza/vim-snippets'
+  " Arduino
+  Bundle 'kingbin/vim-arduino'
 
-  " SuperTab option for context aware completion
-  " let g:SuperTabDefaultCompletionType = 'context'
-  " let g:clang_complete_copen = 1
-
-  let g:clang_user_options='-fblocks -isysroot /Applications/Xcode.app/Contents/Developer/Platforms/iPhoneSimulator.platform/Developer/SDKs/iPhoneSimulator7.1.sdk - D__IPHONE_OS_VERSION_MIN_REQUIRED=70000'
-
-  " Disable auto completion, always <c-x> <c-o> to complete
-  let g:clang_complete_auto = 0
-  let g:clang_use_library = 1
-  let g:clang_periodic_quickfix = 0
-  let g:clang_close_preview = 1
-
-  " For Objective-C, this needs to be active, otherwise multi-parameter methods won't be completed correctly
-  " let g:clang_snippets = 1
-
-  " Snipmate does not work anymore, ultisnips is the recommended plugin
-  " let g:clang_snippets_engine = 'ultisnips'
-
-  " This might change depending on your installation
-  let g:clang_exec = '/usr/bin/clang'
-  let g:clang_library_path = '/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/lib/libclang.dylib'
-
-  " Show sidebar signs.
-  " let g:syntastic_enable_signs=1
-
-  " Read the clang complete file
-  let g:syntastic_objc_config_file = '.clang_complete'
-
-
-  " Tell it to use clang instead of gcc
-  let g:syntastic_objc_checker = 'clang'
-
-  function! XCodeBuild()
-    let l:command = 'xcodebuild -sdk iphonesimulator7.1'
-    let l:out = system(l:command)
-    cexpr l:out
-  endfunction
-
-  map <D-j> :stjump<cr>
-  map <A-D-up> :A<cr>
-  map <A-D-down> :A<cr>
-  map <A-D-left> <C-o>
-  map <A-D-right> <C-i>
+  " LaTeX
+  Bundle 'vim-scripts/TeX-PDF'
+  au BufWritePost *.tex silent :!pdflatex %<CR>
 " =====
 
 
@@ -252,6 +179,25 @@ set nocompatible
 
   " Elixir
   Bundle 'elixir-lang/vim-elixir'
+  au BufNewFile,BufRead *.eex set ft=html
+
+  " LiveScript
+  Bundle 'gkz/vim-ls'
+  au BufNewFile,BufRead *.ls set ft=ls
+
+  " CoffeeScript
+  au BufNewFile,BufRead *.coffee set ft=coffee
+
+  " Jade
+  Bundle 'digitaltoad/vim-jade'
+  au BufNewFile,BufRead *.jade set ft=jade
+
+  " LESS
+  Bundle 'groenewege/vim-less'
+  au BufNewFile,BufRead *.less set ft=less
+
+  " Handlebars
+  Bundle 'nono/vim-handlebars'
 
   " Align text
   Bundle 'godlygeek/tabular'
@@ -297,6 +243,11 @@ set nocompatible
   Bundle 'gmarik/ingretu'
   Bundle 'wombat256.vim'
   Bundle 'croaker/mustang-vim'
+  Bundle 'morhetz/gruvbox'
+  Bundle 'rcdilorenzo/FlatColor'
+  Bundle 'adlawson/vim-sorcerer'
+  Bundle 'vim-scripts/strange'
+  Bundle 'vim-scripts/BusyBee'
 
   " Turn on line numbering
   set number
@@ -319,8 +270,9 @@ set nocompatible
   set background=dark
 
   " Color Scheme
-  " colorscheme twilight
-  colorscheme mustang
+  " colorscheme mustang
+  colorscheme sorcerer
+
 
   " Remove gui toolbar
   if has('gui_running')
@@ -337,9 +289,14 @@ set nocompatible
   " Always show the statusline
   set laststatus=2
 
+  " Allow ]-b and [-b to switch buffers
+  Bundle 'tpope/vim-unimpaired'
+
   Bundle 'bling/vim-airline'
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
+  let g:airline_theme = 'tomorrow'
+  " Nice themes: hybrid, ubaryd, zenburn, tomorrow
 " =====
 
 
@@ -369,6 +326,9 @@ set nocompatible
   set autochdir
   let NERDTreeChDirMode=2
   map <F9> :NERDTreeToggle<CR>
+  map <leader>a :NERDTreeToggle<CR>
+
+  set noautochdir
 " =====
 
 
@@ -378,7 +338,7 @@ set nocompatible
   Bundle 'kien/ctrlp.vim'
 
   "nmap <leader>o :CtrlP<CR>
-  let g:ctrlp_working_path_mode = 2
+  let g:ctrlp_working_path_mode = 'ra'
 
   " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
   " set wildignore+=*/.sass-cache/*,*/tmp/*,*/.tmp/*,*.so
@@ -420,6 +380,7 @@ set nocompatible
 
   " Git gutter/status
   " Bundle 'airblade/vim-gitgutter'
+  " GitGutterSignsDisable
 
   " Syntax highlighting for slim
   Bundle 'bbommarito/vim-slim'
