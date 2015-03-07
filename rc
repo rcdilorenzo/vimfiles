@@ -1,0 +1,422 @@
+set nocompatible
+
+" PLUGIN MANAGEMENT (VUNDLE)
+" NOTE comments after Bundle command are not allowed
+" ====>
+  " This is required
+  filetype off
+
+  " Initialize Vundle
+  set rtp+=~/.vim/bundle/vundle/
+  call vundle#rc()
+
+  " Also required
+  Bundle 'gmarik/vundle'
+" =====
+
+" Split Management
+" ====>
+  set splitbelow
+  set splitright
+
+  nnoremap <C-J> <C-W><C-J>
+  nnoremap <C-K> <C-W><C-K>
+  nnoremap <C-L> <C-W><C-L>
+  nnoremap <C-H> <C-W><C-H>
+" ==== 
+
+
+" GENERAL
+" ====>
+  " Copy with highlighting to Keynote
+  Bundle 'dharanasoft/rtf-highlight'
+
+  " Editor Config
+  Bundle 'editorconfig/editorconfig-vim'
+
+  " Automatically reload .vimrc on save
+  autocmd! bufwritepost .vimrc source %
+
+  " Open folder in Terminal
+  nnoremap <leader>. :!open -a Terminal .<cr>
+
+  " Smart indentation
+  set autoindent
+  set smartindent
+
+  " Tab stops
+  set tabstop=2
+  set shiftwidth=2
+  set softtabstop=2
+  set expandtab
+
+  " Whitespace
+  Bundle 'bronson/vim-trailing-whitespace'
+
+  " Unicode
+  set encoding=utf-8
+
+  " Highlight matching brace/parenthese/bracket
+  set showmatch
+
+  " Visual bell
+  set vb t_vb=
+  set novisualbell
+
+  " Watch for file changes
+  set autoread
+
+  " Line endings
+  set fileformats=unix
+  set ff=unix
+
+  " Free-range cursor in INSERT mode
+  " set virtualedit=all
+
+  " Keep all the temporary and backup files in one place
+  set backup
+  set backupdir=~/.vim/backup
+  set directory=~/.vim/tmp
+  set nobackup
+  set noswapfile
+
+  " Remap split commands
+  nnoremap <leader>h :split<cr>
+  nnoremap <leader>v :vsplit<cr>
+
+  " Undo in INSERT mode
+  imap <c-z> <c-o>u
+
+  " Make tabbing in VISUAL mode keep highlighting
+  vmap <tab> >gv
+  vmap <s-tab> <gv
+
+  " Remove scrollbars
+  if has('gui_running')
+    set guioptions-=l
+    set guioptions-=r
+    set guioptions-=b
+  end
+
+  " Persistent undo
+  if v:version >= 703
+    set undofile
+    set undodir=~/.vim/tmp
+  endif
+
+" =====
+
+" GENERATE BASH PROMPT
+" ====>
+  Bundle 'edkolev/promptline.vim'
+  let g:promptline_theme = 'airline'
+  let g:promptline_preset = {
+        \'a'    : [ promptline#slices#cwd() ],
+        \'b'    : [ '\W' ],
+        \'warn'    : [ promptline#slices#vcs_branch() ]}
+" =====
+
+" SPELL CHECKING
+" ====>
+  " Turn off spell checking (colors made text unreadable)
+  set nospell
+  set spelllang=en
+
+  " Show only 9 suggestions for misspelled words
+  set spellsuggest=9
+" =====
+
+
+" SEARCH
+" ====>
+  " Incremental search with ignore case (except explicit caps)
+  set incsearch
+  set ignorecase
+  set smartcase
+  set showmatch
+  set hlsearch
+
+  " Clear search highlighting
+  nnoremap <leader><space> :noh<cr>
+
+  " Search highlighting
+  set hls
+  "set nohls
+
+  " Ruby-ish regular expressions
+  map / /\v
+
+  " Center search results while browsing
+  map N Nzz
+  map n nzz
+" =====
+
+" Languages
+" ====>
+  " Swift
+  Bundle 'toyamarinyon/vim-swift'
+
+  " Arduino
+  Bundle 'kingbin/vim-arduino'
+
+  " LaTeX
+  Bundle 'vim-scripts/TeX-PDF'
+  au BufWritePost *.tex silent :!pdflatex %<CR>
+" =====
+
+
+" EDITING
+" ====>
+  " Bash command color
+   Bundle 'AnsiEsc.vim'
+
+  " Fix syntax highlighting for .md files
+  au BufRead,BufNewFile *.md set filetype=markdown
+
+  " C++ better highlighting
+  Bundle 'octol/vim-cpp-enhanced-highlight'
+
+  " Multiple cursors
+  Bundle 'terryma/vim-multiple-cursors'
+
+  " Distraction Free
+  Bundle 'junegunn/goyo.vim'
+  nnoremap <leader>z :Goyo<CR>
+
+  Bundle 'bufexplorer.zip'
+  map <C-b> :BufExplorer<CR>
+  map <C-x> :bp\|bd #<CR>
+
+  Bundle 'taskpaper.vim'
+
+  " Elixir
+  Bundle 'elixir-lang/vim-elixir'
+
+  " LiveScript
+  Bundle 'gkz/vim-ls'
+  au BufNewFile,BufRead *.ls set ft=ls
+
+  " CoffeeScript
+  au BufNewFile,BufRead *.coffee set ft=coffee
+
+  " Jade
+  Bundle 'digitaltoad/vim-jade'
+  au BufNewFile,BufRead *.jade set ft=jade
+
+  " LESS
+  Bundle 'groenewege/vim-less'
+  au BufNewFile,BufRead *.less set ft=less
+
+  " Handlebars
+  Bundle 'nono/vim-handlebars'
+
+  " Align text
+  Bundle 'godlygeek/tabular'
+  Bundle 'vim-coffee-script'
+
+  " Cool tab completion stuff
+  Bundle 'ervandew/supertab'
+  set wildmenu
+  set wildmode=list:longest,full
+
+  " toggle comments with \\\
+  Bundle 'tpope/vim-commentary'
+
+  " toggle comments with <leader>c<space>
+  "Bundle 'scrooloose/nerdcommenter'
+
+  " Create empty line and stay in NORMAL mode
+  nnoremap <silent> zj o<Esc>
+  nnoremap <silent> zk O<Esc>
+
+  " Autoclose blocks
+  Bundle 'tpope/vim-endwise'
+" =====
+
+
+" FOLDING
+" ====>
+  " Enable indent folding
+  set foldenable
+  set fdm=indent
+
+  " Turn off folding by default
+  set foldlevel=100
+
+  " Set space to toggle a fold
+  nnoremap <space> za
+" =====
+
+
+" DECORATION
+" ====>
+  " Some nice themes
+  Bundle 'gmarik/ingretu'
+  Bundle 'wombat256.vim'
+  Bundle 'croaker/mustang-vim'
+  Bundle 'morhetz/gruvbox'
+  Bundle 'rcdilorenzo/FlatColor'
+  Bundle 'adlawson/vim-sorcerer'
+  Bundle 'vim-scripts/strange'
+
+  " Turn on line numbering
+  set number
+
+  " Width reserved for line numbers
+  set numberwidth=1
+
+  " Relative numbering in NORMAL mode
+  " Absolute numbering in INSERT mode
+  Bundle 'myusuf3/numbers.vim'
+  nnoremap <F3> :NumbersToggle<CR>
+
+  " Highlight current line
+  set cursorline cursorcolumn
+
+  " Font (download for compatility with airline)
+  set guifont=Sauce\ Code\ Powerline:h13
+
+  " Theme
+  set background=dark
+
+  " Color Scheme
+  colorscheme gruvbox
+  " colorscheme wombat256mod
+  " colorscheme sorcerer
+
+
+  " Remove gui toolbar
+  if has('gui_running')
+    set guioptions-=T
+  end
+" =====
+
+
+" STATUSBAR
+" ====>
+  " Turn on statusbar
+  set ruler
+
+  " Always show the statusline
+  set laststatus=2
+
+  " Allow ]-b and [-b to switch buffers
+  Bundle 'tpope/vim-unimpaired'
+
+  Bundle 'bling/vim-airline'
+  let g:airline#extensions#tabline#enabled = 1
+  let g:airline_powerline_fonts = 1
+  let g:airline_theme = 'tomorrow'
+  " Nice themes: hybrid, ubaryd, zenburn, tomorrow
+" =====
+
+
+" SAVING
+" ====>
+  " Save with ctrl+s
+  map <c-s> <esc>:w<cr>
+  imap <c-s> <c-o><c-s>
+  imap <c-s> <esc><c-s>
+
+  " Make saving less annoying
+  map :W :w
+" =====
+
+
+" PROJECT MANAGEMENT
+" ====>
+  Bundle 'ravinggenius/vim-open'
+
+  " Projects Directory
+  let g:project_dir = '~/workspaces/'
+  let g:open_dir_auto_open_nerdtree = 0
+  let g:open_dir_callback = 'CtrlP'
+
+  Bundle 'scrooloose/nerdtree'
+  set guioptions-=L
+  set autochdir
+  let NERDTreeIgnore = ['^_build', '\.lock$']
+  let NERDTreeChDirMode=2
+  map <F9> :NERDTreeToggle<CR>
+  map <leader>a :NERDTreeToggle<CR>
+
+  set noautochdir
+" =====
+
+
+" QUICK OPEN
+" ====>
+  " http://kien.github.com/ctrlp.vim/
+  Bundle 'kien/ctrlp.vim'
+
+  "nmap <leader>o :CtrlP<CR>
+  let g:ctrlp_working_path_mode = 'ra'
+
+  " set wildignore+=*/.git/*,*/.hg/*,*/.svn/*
+  " set wildignore+=*/.sass-cache/*,*/tmp/*,*/.tmp/*,*.so
+  " set wildignore+=*/vendor/*
+
+  let g:ctrlp_custom_ignore = 'coverage$'
+
+  Bundle 'ack.vim'
+" =====
+
+
+" MOTIONS
+" ====>
+  " Move a line of text using ALT+[jk] (Comamnd+[jk] on mac)
+  nmap <M-j> mz:m+<cr>`z
+  nmap <M-k> mz:m-2<cr>`z
+  vmap <M-j> :m'>+<cr>`<my`>mzgv`yo`z
+  vmap <M-k> :m'<-2<cr>`>my`<mzgv`yo`z
+
+  " Move up and down by screen lines, not file lines
+  nnoremap j gj
+  nnoremap k gk
+
+  " Keep at least 3 lines above/below
+  set scrolloff=3
+
+  " Keep at least 2 lines left/right
+  set sidescrolloff=2
+" =====
+
+
+" GIT
+" ====>
+  " Syntax highlighting for git-specific files and stuff
+  Bundle 'tpope/vim-git'
+
+  " Run git commands from vim
+  Bundle 'tpope/vim-fugitive'
+
+  " Git gutter/status
+  " Bundle 'airblade/vim-gitgutter'
+  " GitGutterSignsDisable
+
+  " Syntax highlighting for slim
+  Bundle 'bbommarito/vim-slim'
+" =====
+
+" INTEGRATION (ELIXIR)
+" ====>
+  au BufRead,BufNewFile *.ex set filetype=elixir
+  au BufRead,BufNewFile *.exs set filetype=elixir
+" =====
+
+" INTEGRATION (MARKDOWN)
+" ====>
+  Bundle 'plasticboy/vim-markdown'
+" =====
+
+
+" INTEGRATION (RUBY)
+" ====>
+  Bundle 'tpope/vim-rails.git'
+" =====
+
+
+" Detect file formats
+" Keep at end - vundle wants this to be off when calling Bundle '...'
+syntax on
+filetype indent plugin on
