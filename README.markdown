@@ -1,7 +1,7 @@
 ## Installation
 
 1. `$ mkdir ~/dotfiles`
-2. `$ git clone git@github.com:rcdilorezo/vimfiles.git ~/dotfiles/vim`
+2. `$ git clone git@github.com:rcdilorenzo/vimfiles.git ~/dotfiles/vim`
 3. `$ ln -s ~/dotfiles/vim ~/.vim`
 3. `$ ln -s ~/dotfiles/vim/rc ~/.vimrc`
 3. Open vim (ignore warning about wombat256mod if using gvim or macvim)
