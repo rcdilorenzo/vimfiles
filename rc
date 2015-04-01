@@ -330,7 +330,7 @@ set nocompatible
   " Projects Directory
   let g:project_dir = '~/workspaces/'
   let g:open_dir_auto_open_nerdtree = 0
-  let g:open_dir_callback = 'CtrlP'
+  let g:open_dir_callback = 'NERDTree'
 
   Bundle 'scrooloose/nerdtree'
   set guioptions-=L
