@@ -1,11 +1,11 @@
 ## Installation
 
-0. `$ mkdir ~/dotfiles`
-0. `$ git clone git@github.com:rcdilorenzo/vimfiles.git ~/dotfiles/vim`
-0. `$ ln -s ~/dotfiles/vim ~/.vim`
-0. `$ ln -s ~/dotfiles/vim/rc ~/.vimrc`
-0. `$ mkdir ~/dotfiles/bundle`
-0. `$ git clone git@github.com:gmarik/Vundle.vim.git ~/dotfiles/bundle/vundle`
+0. `$ mkdir ~/vimfiles`
+0. `$ git clone git@github.com:rcdilorenzo/vimfiles.git`
+0. `$ ln -s ~/vimfiles ~/.vim`
+0. `$ ln -s ~/vimfiles/rc ~/.vimrc`
+0. `$ mkdir ~/vimfiles/bundle`
+0. `$ git clone git@github.com:gmarik/Vundle.vim.git ~/vimfiles/bundle/vundle`
 0. Open vim (ignore warning about wombat256mod if using gvim or macvim)
 0. Run `:BundleInstall`
 0. Close and reopen vim
