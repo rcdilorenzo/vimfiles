@@ -161,12 +161,15 @@ set nocompatible
 
   " LaTeX
   Bundle 'vim-scripts/TeX-PDF'
-  au BufWritePost *.tex silent :!pdflatex %<CR>
+  au BufWritePost *.tex silent :!pdflatex "%"<CR>
 " =====
 
 
 " EDITING
 " ====>
+  " Writing
+  Bundle 'reedes/vim-pencil'
+
   " Bash command color
    Bundle 'AnsiEsc.vim'
 
@@ -191,6 +194,11 @@ set nocompatible
 
   " Elixir
   Bundle 'elixir-lang/vim-elixir'
+  Bundle 'mattreduce/vim-mix'
+
+  " Python
+  Bundle 'hdima/python-syntax'
+  let python_highlight_all = 1
 
   " LiveScript
   Bundle 'gkz/vim-ls'
@@ -274,7 +282,8 @@ set nocompatible
   set cursorline cursorcolumn
 
   " Font (download for compatility with airline)
-  set guifont=Sauce\ Code\ Powerline:h13
+  " set guifont=Sauce\ Code\ Powerline:h13
+  set guifont=Hack:h13
 
   " Theme
   set background=dark
@@ -356,7 +365,7 @@ set nocompatible
   " set wildignore+=*/.sass-cache/*,*/tmp/*,*/.tmp/*,*.so
   " set wildignore+=*/vendor/*
 
-  let g:ctrlp_custom_ignore = 'coverage$'
+  let g:ctrlp_custom_ignore = 'node_modules\|bower_components\|coverage$'
 
   Bundle 'ack.vim'
 " =====
@@ -395,7 +404,7 @@ set nocompatible
   " GitGutterSignsDisable
 
   " Syntax highlighting for slim
-  Bundle 'bbommarito/vim-slim'
+  Bundle 'slim-template/vim-slim'
 " =====
 
 " INTEGRATION (ELIXIR)
