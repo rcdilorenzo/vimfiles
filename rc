@@ -34,6 +34,9 @@ set nocompatible
   " Editor Config
   Bundle 'editorconfig/editorconfig-vim'
 
+  " Interactive Shell
+  Bundle 'lrvick/Conque-Shell'
+
   " Automatically reload .vimrc on save
   autocmd! bufwritepost .vimrc source %
 
