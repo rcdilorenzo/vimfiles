@@ -23,7 +23,7 @@ set nocompatible
   nnoremap <C-K> <C-W><C-K>
   nnoremap <C-L> <C-W><C-L>
   nnoremap <C-H> <C-W><C-H>
-" ==== 
+" ====
 
 
 " GENERAL
@@ -173,6 +173,9 @@ set nocompatible
   " Writing
   Bundle 'reedes/vim-pencil'
 
+  " Splitting / Joining
+  Bundle 'AndrewRadev/splitjoin.vim'
+
   " Bash command color
    Bundle 'AnsiEsc.vim'
 
@@ -195,9 +198,28 @@ set nocompatible
 
   Bundle 'taskpaper.vim'
 
+  " Go
+  au FileType go nmap <leader>r <Plug>(go-run)
+  au FileType go nmap <leader>b <Plug>(go-build)
+  au FileType go nmap <leader>t <Plug>(go-test)
+  au FileType go nmap <leader>c <Plug>(go-coverage)
+  let g:go_highlight_functions = 1
+  let g:go_highlight_methods = 1
+  let g:go_highlight_structs = 1
+  let g:go_highlight_interfaces = 1
+  let g:go_highlight_operators = 1
+  let g:go_highlight_build_constraints = 1
+  let g:go_highlight_extra_types = 1
+  Bundle 'fatih/vim-go'
+
   " Elixir
   Bundle 'elixir-lang/vim-elixir'
   Bundle 'mattreduce/vim-mix'
+  Bundle 'mmorearty/elixir-ctags'
+  nnoremap <leader>t :!mix test --no-color %<CR>
+
+  " Elm
+  Bundle 'lambdatoast/elm.vim'
 
   " Python
   Bundle 'hdima/python-syntax'
@@ -213,6 +235,9 @@ set nocompatible
   " Jade
   Bundle 'digitaltoad/vim-jade'
   au BufNewFile,BufRead *.jade set ft=jade
+
+  " HTML5
+  Bundle 'othree/html5.vim'
 
   " LESS
   Bundle 'groenewege/vim-less'
@@ -266,9 +291,9 @@ set nocompatible
   Bundle 'wombat256.vim'
   Bundle 'croaker/mustang-vim'
   Bundle 'morhetz/gruvbox'
-  Bundle 'rcdilorenzo/FlatColor'
   Bundle 'adlawson/vim-sorcerer'
   Bundle 'vim-scripts/strange'
+  Bundle 'rcdilorenzo/vim-colors-pencil'
 
   " Turn on line numbering
   set number
@@ -296,6 +321,11 @@ set nocompatible
   " colorscheme wombat256mod
   " colorscheme sorcerer
 
+  if has('gui_running')
+    colorscheme pencil
+    let s:light_red       = { "gui": "#DC577E", "cterm": "1"   }
+  endif
+
 
   " Remove gui toolbar
   if has('gui_running')
@@ -315,7 +345,8 @@ set nocompatible
   " Allow ]-b and [-b to switch buffers
   Bundle 'tpope/vim-unimpaired'
 
-  Bundle 'bling/vim-airline'
+  Bundle 'vim-airline/vim-airline'
+  Bundle 'vim-airline/vim-airline-themes'
   let g:airline#extensions#tabline#enabled = 1
   let g:airline_powerline_fonts = 1
   let g:airline_theme = 'tomorrow'

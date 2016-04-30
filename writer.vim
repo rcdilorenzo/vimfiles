@@ -6,6 +6,7 @@ hi FoldColumn guibg=white
 set foldcolumn=12
 set linespace=8
 set tw=80
+set guifont=Input\ Mono:h13
 hi Normal guibg=gray95
 hi NonText guifg=gray95
 hi FoldColumn guibg=gray95
