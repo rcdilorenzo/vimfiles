@@ -198,6 +198,18 @@ set nocompatible
 
   Bundle 'taskpaper.vim'
 
+  " Syntastic
+  Bundle 'scrooloose/syntastic'
+  set statusline+=%#warningmsg#
+  set statusline+=%{SyntasticStatuslineFlag()}
+  set statusline+=%*
+
+  let g:syntastic_always_populate_loc_list = 1
+  let g:syntastic_auto_loc_list = 1
+  let g:syntastic_check_on_open = 1
+  let g:syntastic_check_on_wq = 0
+  let g:syntastic_javascript_checkers = ['eslint']
+
   " Go
   au FileType go nmap <leader>r <Plug>(go-run)
   au FileType go nmap <leader>b <Plug>(go-build)
@@ -220,6 +232,10 @@ set nocompatible
 
   " Elm
   Bundle 'lambdatoast/elm.vim'
+
+  " React/JSX
+  Bundle 'mxw/vim-jsx'
+  let g:jsx_ext_required = 0
 
   " Python
   Bundle 'hdima/python-syntax'
@@ -294,6 +310,7 @@ set nocompatible
   Bundle 'adlawson/vim-sorcerer'
   Bundle 'vim-scripts/strange'
   Bundle 'rcdilorenzo/vim-colors-pencil'
+  Bundle 'chriskempson/base16-vim'
 
   " Turn on line numbering
   set number
@@ -307,11 +324,11 @@ set nocompatible
   nnoremap <F3> :NumbersToggle<CR>
 
   " Highlight current line
-  set cursorline cursorcolumn
+  set cursorline
 
   " Font (download for compatility with airline)
   " set guifont=Sauce\ Code\ Powerline:h13
-  set guifont=Hack:h13
+  set guifont=Fira\ Code:h13
 
   " Theme
   set background=dark
@@ -322,7 +339,9 @@ set nocompatible
   " colorscheme sorcerer
 
   if has('gui_running')
-    colorscheme pencil
+    set guifont=Sauce\ Code\ Powerline:h13
+    " colorscheme pencil
+    colorscheme base16-twilight
     let s:light_red       = { "gui": "#DC577E", "cterm": "1"   }
   endif
 
