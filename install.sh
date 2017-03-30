@@ -16,10 +16,14 @@ git clone git@github.com:gmarik/Vundle.vim.git ~/vimfiles/bundle/vundle --quiet
 echo "Open vim (ignore warnings about missing dependencies)"
 echo "Run :BundleInstall"
 echo "Close and reopen vim"
-read -rsp $'Press any key to install the patched fonts (or Ctrl-C to exit)...\n' -n1 key
 
-echo "Downloading patched fonts..."
-git clone git@github.com:powerline/fonts.git
-echo "Installing patched fonts..."
-./fonts/install.sh
-rm -rf fonts/
+read -n1 -r -p "Press space to continue with patched fonts or any other key to exit..." key
+if [ "$key" = '' ]; then
+    echo "Downloading patched fonts..."
+    git clone git@github.com:powerline/fonts.git --quiet
+    echo "Installing patched fonts..."
+    ./fonts/install.sh
+    rm -rf fonts/
+fi
+
+echo "Your vim setup is complete. Thanks for using my vimfiles. - @rcdilorenzo (https://git.io/vMjZB)"
