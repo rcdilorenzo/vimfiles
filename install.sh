@@ -13,14 +13,11 @@ mkdir ~/vimfiles/bundle
 echo "Downloading vundle for dependencies..."
 git clone git@github.com:gmarik/Vundle.vim.git ~/vimfiles/bundle/vundle --quiet
 
-read -n1 -r -p $'Press space to use patched fonts or any other key to continue...\n' key
-if [ "$key" = '' ]; then
-    echo "Downloading patched fonts..."
-    git clone git@github.com:powerline/fonts.git --quiet
-    echo "Installing patched fonts..."
-    ./fonts/install.sh
-    rm -rf fonts/
-fi
+echo "Downloading patched fonts..."
+git clone git@github.com:powerline/fonts.git --quiet
+echo "Installing patched fonts..."
+./fonts/install.sh
+rm -rf fonts/
 
 echo "The configuration files are now all in place."
 echo "Follow these instructions to complete the installation:"
