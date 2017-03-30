@@ -13,11 +13,7 @@ mkdir ~/vimfiles/bundle
 echo "Downloading vundle for dependencies..."
 git clone git@github.com:gmarik/Vundle.vim.git ~/vimfiles/bundle/vundle --quiet
 
-echo "Open vim (ignore warnings about missing dependencies)"
-echo "Run :BundleInstall"
-echo "Close and reopen vim"
-
-read -n1 -r -p "Press space to continue with patched fonts or any other key to exit..." key
+read -n1 -r -p $'Press space to use patched fonts or any other key to continue...\n' key
 if [ "$key" = '' ]; then
     echo "Downloading patched fonts..."
     git clone git@github.com:powerline/fonts.git --quiet
@@ -26,4 +22,10 @@ if [ "$key" = '' ]; then
     rm -rf fonts/
 fi
 
-echo "Your vim setup is complete. Thanks for using my vimfiles. - @rcdilorenzo (https://git.io/vMjZB)"
+echo "The configuration files are now all in place."
+echo "Follow these instructions to complete the installation:"
+echo "1. Open vim (ignore warnings about missing dependencies)"
+echo "2. Run :BundleInstall"
+echo "3. Close and reopen vim"
+echo ""
+echo $'Your vim setup is complete. Thanks for using my vimfiles. - @rcdilorenzo (https://git.io/vMjZB)'
