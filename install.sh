@@ -5,7 +5,7 @@ fi
 
 mkdir ~/vimfiles
 echo "Downloading vimfiles..."
-git clone git@github.com:rcdilorenzo/vimfiles.git --quiet
+git clone git@github.com:rcdilorenzo/vimfiles.git ~/vimfiles --quiet
 ln -s ~/vimfiles ~/.vim
 ln -s ~/vimfiles/rc ~/.vimrc
 mkdir ~/vimfiles/bundle
