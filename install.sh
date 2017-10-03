@@ -5,16 +5,16 @@ fi
 
 mkdir ~/vimfiles
 echo "Downloading vimfiles..."
-git clone git@github.com:rcdilorenzo/vimfiles.git ~/vimfiles --quiet
+git clone https://github.com/rcdilorenzo/vimfiles.git ~/vimfiles --quiet
 ln -s ~/vimfiles ~/.vim
 ln -s ~/vimfiles/rc ~/.vimrc
 mkdir ~/vimfiles/bundle
 
 echo "Downloading vundle for dependencies..."
-git clone git@github.com:gmarik/Vundle.vim.git ~/vimfiles/bundle/vundle --quiet
+git clone https://github.com/gmarik/Vundle.vim.git ~/vimfiles/bundle/vundle --quiet
 
 echo "Downloading patched fonts..."
-git clone git@github.com:powerline/fonts.git --quiet
+git clone https://github.com/powerline/fonts.git --quiet
 echo "Installing patched fonts..."
 ./fonts/install.sh
 rm -rf fonts/
