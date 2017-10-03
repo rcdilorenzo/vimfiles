@@ -5,7 +5,7 @@
 ## Installation
 
 ```
-\curl -sSL https://git.io/vSZX5 | bash -s
+\curl -L https://l.rcd.zone/2g8jyky | bash -s
 ```
 
 Note that you should always read the bash script you're about to download and run. I'm not malicious but that does not mean everyone else is nice. :-)
