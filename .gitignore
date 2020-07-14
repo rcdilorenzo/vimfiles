@@ -3,3 +3,4 @@ backup/*
 bundle
 tmp/*
 !tmp/.gitnotice
+.netrwhist

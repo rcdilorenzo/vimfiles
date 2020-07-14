@@ -29,7 +29,7 @@ set nocompatible
 " GENERAL
 " ====>
   " Copy with highlighting to Keynote
-  Bundle 'dharanasoft/rtf-highlight'
+  " Bundle 'dharanasoft/rtf-highlight'
 
   " Editor Config
   Bundle 'editorconfig/editorconfig-vim'
@@ -52,6 +52,9 @@ set nocompatible
   set shiftwidth=2
   set softtabstop=2
   set expandtab
+
+  " Format
+  Bundle 'Chiel92/vim-autoformat'
 
   " Whitespace
   Bundle 'bronson/vim-trailing-whitespace'
@@ -157,14 +160,14 @@ set nocompatible
 " Languages
 " ====>
   " Swift
-  Bundle 'toyamarinyon/vim-swift'
+  " Bundle 'toyamarinyon/vim-swift'
 
   " Arduino
-  Bundle 'kingbin/vim-arduino'
+  " Bundle 'kingbin/vim-arduino'
 
   " LaTeX
-  Bundle 'vim-scripts/TeX-PDF'
-  au BufWritePost *.tex silent :!pdflatex "%"<CR>
+  " Bundle 'vim-scripts/TeX-PDF'
+  " au BufWritePost *.tex silent :!pdflatex "%"<CR>
 " =====
 
 
@@ -183,7 +186,7 @@ set nocompatible
   au BufRead,BufNewFile *.md set filetype=markdown
 
   " C++ better highlighting
-  Bundle 'octol/vim-cpp-enhanced-highlight'
+  " Bundle 'octol/vim-cpp-enhanced-highlight'
 
   " Multiple cursors
   Bundle 'terryma/vim-multiple-cursors'
@@ -199,39 +202,39 @@ set nocompatible
   Bundle 'taskpaper.vim'
 
   " Syntastic
-  Bundle 'scrooloose/syntastic'
-  set statusline+=%#warningmsg#
-  set statusline+=%{SyntasticStatuslineFlag()}
-  set statusline+=%*
+  " Bundle 'scrooloose/syntastic'
+  " set statusline+=%#warningmsg#
+  " set statusline+=%{SyntasticStatuslineFlag()}
+  " set statusline+=%*
 
-  let g:syntastic_always_populate_loc_list = 1
-  let g:syntastic_auto_loc_list = 1
-  let g:syntastic_check_on_open = 1
-  let g:syntastic_check_on_wq = 0
-  let g:syntastic_javascript_checkers = ['eslint']
+  " let g:syntastic_always_populate_loc_list = 1
+  " let g:syntastic_auto_loc_list = 1
+  " let g:syntastic_check_on_open = 1
+  " let g:syntastic_check_on_wq = 0
+  " let g:syntastic_javascript_checkers = ['eslint']
 
   " Go
-  au FileType go nmap <leader>r <Plug>(go-run)
-  au FileType go nmap <leader>b <Plug>(go-build)
-  au FileType go nmap <leader>t <Plug>(go-test)
-  au FileType go nmap <leader>c <Plug>(go-coverage)
-  let g:go_highlight_functions = 1
-  let g:go_highlight_methods = 1
-  let g:go_highlight_structs = 1
-  let g:go_highlight_interfaces = 1
-  let g:go_highlight_operators = 1
-  let g:go_highlight_build_constraints = 1
-  let g:go_highlight_extra_types = 1
-  Bundle 'fatih/vim-go'
+  " au FileType go nmap <leader>r <Plug>(go-run)
+  " au FileType go nmap <leader>b <Plug>(go-build)
+  " au FileType go nmap <leader>t <Plug>(go-test)
+  " au FileType go nmap <leader>c <Plug>(go-coverage)
+  " let g:go_highlight_functions = 1
+  " let g:go_highlight_methods = 1
+  " let g:go_highlight_structs = 1
+  " let g:go_highlight_interfaces = 1
+  " let g:go_highlight_operators = 1
+  " let g:go_highlight_build_constraints = 1
+  " let g:go_highlight_extra_types = 1
+  " Bundle 'fatih/vim-go'
 
   " Elixir
-  Bundle 'elixir-lang/vim-elixir'
-  Bundle 'mattreduce/vim-mix'
-  Bundle 'mmorearty/elixir-ctags'
-  nnoremap <leader>t :!mix test --no-color %<CR>
+  " Bundle 'elixir-lang/vim-elixir'
+  " Bundle 'mattreduce/vim-mix'
+  " Bundle 'mmorearty/elixir-ctags'
+  " nnoremap <leader>t :!mix test --no-color %<CR>
 
   " Elm
-  Bundle 'lambdatoast/elm.vim'
+  " Bundle 'lambdatoast/elm.vim'
 
   " React/JSX
   Bundle 'mxw/vim-jsx'
@@ -242,29 +245,29 @@ set nocompatible
   let python_highlight_all = 1
 
   " LiveScript
-  Bundle 'gkz/vim-ls'
-  au BufNewFile,BufRead *.ls set ft=ls
+  " Bundle 'gkz/vim-ls'
+  " au BufNewFile,BufRead *.ls set ft=ls
 
   " CoffeeScript
-  au BufNewFile,BufRead *.coffee set ft=coffee
+  " au BufNewFile,BufRead *.coffee set ft=coffee
 
   " Jade
-  Bundle 'digitaltoad/vim-jade'
-  au BufNewFile,BufRead *.jade set ft=jade
+  " Bundle 'digitaltoad/vim-jade'
+  " au BufNewFile,BufRead *.jade set ft=jade
 
   " HTML5
   Bundle 'othree/html5.vim'
 
   " LESS
-  Bundle 'groenewege/vim-less'
-  au BufNewFile,BufRead *.less set ft=less
+  " Bundle 'groenewege/vim-less'
+  " au BufNewFile,BufRead *.less set ft=less
 
   " Handlebars
-  Bundle 'nono/vim-handlebars'
+  " Bundle 'nono/vim-handlebars'
 
   " Align text
   Bundle 'godlygeek/tabular'
-  Bundle 'vim-coffee-script'
+  " Bundle 'vim-coffee-script'
 
   " Cool tab completion stuff
   Bundle 'ervandew/supertab'
@@ -457,13 +460,13 @@ set nocompatible
   " GitGutterSignsDisable
 
   " Syntax highlighting for slim
-  Bundle 'slim-template/vim-slim'
+  " Bundle 'slim-template/vim-slim'
 " =====
 
 " INTEGRATION (ELIXIR)
 " ====>
-  au BufRead,BufNewFile *.ex set filetype=elixir
-  au BufRead,BufNewFile *.exs set filetype=elixir
+  " au BufRead,BufNewFile *.ex set filetype=elixir
+  " au BufRead,BufNewFile *.exs set filetype=elixir
 " =====
 
 " INTEGRATION (MARKDOWN)
@@ -474,7 +477,7 @@ set nocompatible
 
 " INTEGRATION (RUBY)
 " ====>
-  Bundle 'tpope/vim-rails.git'
+  " Bundle 'tpope/vim-rails.git'
 " =====
 
 
