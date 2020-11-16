@@ -1,5 +1,7 @@
 set nocompatible
 
+let mapleader = "\<Space>"
+
 " PLUGIN MANAGEMENT (VUNDLE)
 " NOTE comments after Bundle command are not allowed
 " ====>
@@ -236,6 +238,10 @@ set nocompatible
   " Elm
   " Bundle 'lambdatoast/elm.vim'
 
+  " Surround
+  Bundle 'tpope/vim-surround'
+
+
   " React/JSX
   Bundle 'mxw/vim-jsx'
   let g:jsx_ext_required = 0
@@ -243,6 +249,17 @@ set nocompatible
   " Python
   Bundle 'hdima/python-syntax'
   let python_highlight_all = 1
+
+  " Run tests
+  Bundle 'vim-test/vim-test'
+  nmap <silent> <leader>tn :TestNearest<CR>
+  nmap <silent> <leader>tf :TestFile<CR>
+  nmap <silent> <leader>ts :TestSuite<CR>
+  nmap <silent> <leader>tl :TestLast<CR>
+  nmap <silent> <leader>tg :TestVisit<CR>
+  Bundle 'benmills/vimux'
+  Bundle 'voldikss/vim-floaterm'
+  Bundle 'tpope/vim-dispatch'
 
   " LiveScript
   " Bundle 'gkz/vim-ls'
